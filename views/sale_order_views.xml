@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Enhanced Sales Order Form View -->
+        <record id="sale_order_view_form_inherit_alt_uom" model="ir.ui.view">
+            <field name="name">sale.order.form.inherit.alt.uom</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='price_unit']" position="after">
+                    <field name="alt_qty" string="Alt Qty" readonly="1" optional="hide"/>
+                    <field name="alt_price" string="Alt Price" readonly="1" optional="hide"/>
+                    <field name="alt_uom" string="Alt UOM" readonly="1" optional="hide" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

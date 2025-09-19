@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Inherit existing sale order report to add alternative UOM columns -->
+        <template id="report_saleorder_document_inherit_alt_uom" inherit_id="sale.report_saleorder_document">
+            <!-- Add headers after Unit Price -->
+            <xpath expr="//th[@name='th_priceunit']" position="after">
+                <th name="th_alt_qty" class="text-right">Alt Qty</th>
+                <th name="th_alt_price" class="text-right">Alt Price</th>
+            </xpath>
+
+            <!-- Add data cells after price_unit -->
+            <xpath expr="//td[@name='td_priceunit']" position="after">
+                <td name="td_alt_qty" class="text-right">
+                    <t t-if="line.alt_qty > 0">
+                        <span t-field="line.alt_qty"/>
+                        <span t-if="line.alt_uom" t-esc="' ' + line.alt_uom"/>
+                    </t>
+                </td>
+                <td name="td_alt_price" class="text-right">
+                    <t t-if="line.alt_price > 0">
+                        <span t-field="line.alt_price" t-options='{"widget": "monetary", "display_currency": doc.pricelist_id.currency_id}'/>
+                    </t>
+                </td>
+            </xpath>
+        </template>
+    </data>
+</odoo>
